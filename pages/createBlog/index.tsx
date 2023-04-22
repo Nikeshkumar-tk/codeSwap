@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { MutatingDots, Triangle } from 'react-loader-spinner'
 import React, { useRef, useState } from 'react'
+import { ISessionUser } from '@/lib/interfaces/user'
 
 const CreateBost = () => {
   const { status, data } = useSession()
@@ -12,6 +13,7 @@ const CreateBost = () => {
   const descriptionRef = useRef<any>()
   const router = useRouter()
   const blogServices = useBlogservice()
+  const sessionUser = data?.user as ISessionUser
   if (status === "unauthenticated") {
     router.push("/api/auth/signin")
   }

@@ -1,12 +1,12 @@
 import clientPromise from "@/lib/db/mongoAdapter"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import NextAuth, { Session, User } from "next-auth"
+import NextAuth, { NextAuthOptions, Session, User } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import { PrismaClient } from "@prisma/client"
 
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({

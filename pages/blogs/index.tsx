@@ -1,5 +1,8 @@
 import Blog from '@/components/Blog'
+import { getServerSession } from 'next-auth'
 import React, { useState, useEffect } from 'react'
+import { authOptions } from '../api/auth/[...nextauth]'
+import { GetServerSidePropsContext } from 'next'
 
 const Index = () => {
     const [hydrated, setHydrated] = useState<boolean>(false)

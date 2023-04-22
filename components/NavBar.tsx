@@ -1,8 +1,8 @@
 "use client"
 import { AiOutlineMenu } from 'react-icons/ai'
-import { TbBeta } from "react-icons/tb"
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link'
+import { ISessionUser } from '@/lib/interfaces/user';
 interface Props {
 
     drawerOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -10,6 +10,7 @@ interface Props {
 }
 const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
     const { status, data } = useSession()
+    const sessionUser = data?.user as ISessionUser
     return (
         <nav className='px-10 sm:px-20 mx-auto py-5 fixed  w-screen z-10'>
             <div className='absolute left-3 sm:left-8 top-[40%] font-bold cursor-pointer' onClick={() => drawerOpen(p => !p)}>
@@ -17,8 +18,8 @@ const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
             </div>
             <div className='flex justify-between whitespace-nowrap items-center'>
                 <div className='flex items-center gap-2'>
-                    <Link href={"/"}> <h2 className='text-2xl font-bold'>code<span className='bg-pink-200 rounded-full px-2'>Swap</span> </h2></Link>
-
+                    <Link href={"/"}> <h2 className='text-2xl font-bold'>code<span className='bg-[#4f46e5] text-white rounded-full px-2'>Swap</span> </h2></Link>
+<button className='border border-blue-900 px-3 rounded-md'>Beta</button>
                 </div>
                 <div className='flex gap-10 items-center'>
 
@@ -36,7 +37,7 @@ const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
                                 </button>
                             </Link> : (
                                 <div className='flex items-center'>
-                                    <img src={data?.user?.image!} className='rounded-full h-8 w-8' />
+                                    <img src={sessionUser?.image} className='rounded-full h-8 w-8' />
                                 </div>
                             )
                         }
