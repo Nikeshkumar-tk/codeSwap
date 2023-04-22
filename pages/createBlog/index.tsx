@@ -51,14 +51,14 @@ const CreateBost = () => {
             visible={true}
           />
         </div> : (
-          <div className='px-8 sm:px-20 mt-4 flex flex-col'>
-            <div className='self-end flex w-full justify-end items-center'>
-              {/* <div>
+          <div className='px-8 sm:px-20 py-20 mt-4 flex flex-col'>
+            <div className='self-end flex w-full justify-between items-center'>
+              <div>
                 <label htmlFor="blogImage" className='cursor-pointer whitespace-nowrap bg-blue-600 rounded px-3 text-white py-1'>
                   Upload img
                 </label>
                 <input type="file" id='blogImage' className='hidden' onChange={(e) => setImage(e.target.files)} />
-              </div> */}
+              </div>
               <button className='bg-pink-200 rounded-lg h-10 w-20' onClick={() => handleSubmit()}>
                 Publish
               </button>

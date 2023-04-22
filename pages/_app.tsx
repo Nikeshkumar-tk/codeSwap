@@ -15,18 +15,19 @@ export default function App({ session, Component, pageProps }: AppProps | any) {
   const router = useRouter()
   const currentPath = router.asPath
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
-  
+
   return (<SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
-      {currentPath !== "/auth/signin" && (
-<>
-<NavBar drawerOpen={setDrawerOpen} menuBtnRef={btnRef} />
-<Sidebar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen}/>
-</>
-      )}
+        {currentPath !== "/auth/signin" && (
+          <>
+            <NavBar drawerOpen={setDrawerOpen} menuBtnRef={btnRef} />
+            <Sidebar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+          </>
+        )}
         <div className=''>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
         </div>
+    
     </QueryClientProvider>
   </SessionProvider>
   )
