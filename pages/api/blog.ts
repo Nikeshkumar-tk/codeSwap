@@ -9,7 +9,6 @@ export default async function handler(
   const mongoDal = new MongoDal();
   let result
   try {
-
     switch(method){
       case "POST":
         result = await mongoDal.createItem({

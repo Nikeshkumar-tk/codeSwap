@@ -9,7 +9,7 @@ export class MongoDal implements IMongoDal {
         this.mongoUrl = process.env.DATABASE_URL!;
         this.createItem = this.createItem.bind(this);
         this.getItem = this.getItem.bind(this);
-        this.schema = new MongoSchema().initializeSchemas()
+        this.schema = new MongoSchema()
     }
 
     async createItem({ data, resource, uniqueCheck }: ICreateItem) {

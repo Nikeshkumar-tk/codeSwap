@@ -11,6 +11,7 @@ interface Props {
 const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
     const { status, data } = useSession()
     const sessionUser = data?.user as ISessionUser
+    console.log("Printing session user", sessionUser)
     return (
         <nav className='px-10 bg-white sm:px-20 mx-auto py-5 fixed  w-screen z-10'>
             <div className='absolute left-3 sm:left-8 top-[40%] font-bold cursor-pointer' onClick={() => drawerOpen(p => !p)}>
@@ -24,13 +25,13 @@ const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
                 <div className='flex gap-10 items-center'>
 
                     <ul className='hidden sm:flex gap-5 '>
-                        <Link href={"/resources"}><li className='cursor-pointer'>Resources</li></Link>
-                        <li className='cursor-pointer'>Courses</li>
+                        <Link href={"/courses"}><li className='cursor-pointer'>Courses</li></Link>
+                        <Link href={"/blogs"}><li className='cursor-pointer'>Blogs</li></Link>      
                         <li className='cursor-pointer'>Subscriptions</li>
                         <li className='cursor-pointer'>Projects</li>
                     </ul>
-                    <div className='flex items-center gap-5'>
-                 <a href="https://github.com/Nikeshkumar-tk/codeSwap" target='_blank'><AiFillGithub size={35}/></a>   
+                    <div className='flex items-center sm:gap-5'>
+                 <a href="https://github.com/Nikeshkumar-tk/codeSwap" className='hidden sm:inline-block' target='_blank'><AiFillGithub size={35}/></a>   
                         {
                             status === "unauthenticated" ? <Link href={"auth/signin"}>
                                 <button className='rounded-md border border-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-indigo-600 hover:bg-indigo-300'>
@@ -38,7 +39,7 @@ const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
                                 </button>
                             </Link> : (
                                 <div className='flex items-center'>
-                                    <img src={sessionUser?.image} className='rounded-full h-8 w-8' />
+                                    <img src={sessionUser?.image} className='rounded-full h-8 w-8' alt=''/>
                                 </div>
                             )
                         }

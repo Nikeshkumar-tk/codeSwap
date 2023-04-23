@@ -28,7 +28,6 @@ export const authOptions: NextAuthOptions = {
       const isAdmin = admins.some((admin:any) => admin.email === user.email)
       const role = isAdmin ? "admin" : "user"
       session.user.role = role
-      console.log("Calling call back",session)
       return session
     },
   },

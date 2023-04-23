@@ -27,5 +27,15 @@ model Admins {
   email   String   @db.VarChar(255) @unique
   name String   @db.VarChar(255)
 }
+model Resources {
+  id        String      @id  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userEmail   String   @db.VarChar(255)
+  name String   @db.VarChar(255)
+  description String @db.VarChar(255)
+  type String @db.VarChar(255)
+  url String?
+}
 
 

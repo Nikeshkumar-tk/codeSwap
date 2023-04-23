@@ -40,12 +40,12 @@ console.log("Printing role from context", role)
 
       }
 <div>
-  <h1 className='text-4xl font-semibold flex justify-center whitespace-nowrap'>Read our latest blogs</h1>
+  <h1 className='text-4xl font-semibold flex justify-center whitespace-nowrap text-indigo-800'>Blogs</h1>
 </div>
       {
         loadingBlogs ? <Loading text='Loading blogs...'/>
        :
-            <div className='grid mt-5 py-5 sm:grid-cols-3 gap-y-4 gap-x-3 max-h-screen mt-1 overflow-y-scroll'>
+            <div className='grid  py-5 sm:grid-cols-3 gap-y-4 gap-x-3 max-h-screen mt-5 overflow-y-scroll'>
 
               {
                 blogs.map((blog: any) => (

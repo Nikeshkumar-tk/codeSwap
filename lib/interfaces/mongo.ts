@@ -32,9 +32,19 @@ export interface IBlog{
 export interface ISchemaExport{
     Blog:any
     User:any
+    Resource:any
 }
 
 export interface IClientBlog{
 relativePath:string
 baseUrl:string
+}
+
+
+export interface IResource{
+    name:string
+    category:string
+    description:string
+    url?:string
+    userEmail:string
 }
