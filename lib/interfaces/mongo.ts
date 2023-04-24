@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { DefaultSchemaOptions } from "mongoose";
 
 
 export interface IMongoDal{
@@ -12,14 +12,16 @@ export interface  ICreateItem{
     uniqueCheck?:any
 }
 
+
 export interface IAuthService{
     relativePath:string
 }
 
 export interface IGetItem{
 resource:string
-queryObj:any
+queryObj?:any
 }
+
 
 export interface IBlog{
     title:string,
@@ -32,6 +34,7 @@ export interface IBlog{
 export interface ISchemaExport{
     Blog:any
     User:any
+    Config:any
     Resource:any
 }
 
@@ -41,10 +44,17 @@ baseUrl:string
 }
 
 
-export interface IResource{
-    name:string
-    category:string
-    description:string
-    url?:string
+export interface IConfig{
+    rootId:string
+    rootName:string
+    children:any[]
+}
+
+export interface IResourceSchema extends DefaultSchemaOptions{
+    typeId:string
+    tags:string[]
     userEmail:string
+    title:string
+    description:string
+    url:string
 }

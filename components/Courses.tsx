@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import Loading from './Loading'
 
-const Resources = () => {
+const Courses = () => {
   const services = useResourceService()
   const [courses, setCourses] = useState<any>([])
   const { isLoading: loadingCourses } = useQuery({
@@ -46,4 +46,4 @@ const Resources = () => {
   )
 }
 
-export default Resources
+export default Courses

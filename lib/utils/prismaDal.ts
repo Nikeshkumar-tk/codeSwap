@@ -1,6 +1,6 @@
 import { ICreateItem } from "../interfaces/mongo";
 import { PrismaClient } from "@prisma/client";
-import { IPrismaDal } from "../interfaces/prisma";
+import { IPriamaGetItem, IPrismaDal } from "../interfaces/prisma";
 export class PrismaDal implements IPrismaDal {
   Prisma: PrismaClient;
 
@@ -14,6 +14,12 @@ export class PrismaDal implements IPrismaDal {
     const response = await this.Prisma[resource].create({
         data
     });
+    return response
+  }
+
+  async getItems({resource, queryObj}:IPriamaGetItem){
+        //@ts-ignore
+    const response = await this.Prisma[resource].findMany(queryObj)
     return response
   }
 }

@@ -1,6 +1,6 @@
-import { IBlog, IResource, ISchemaExport } from "@/lib/interfaces/mongo";
-import { strict } from "assert";
-import mongoose from "mongoose";
+import { IBlog, IConfig, IResourceSchema, ISchemaExport } from "@/lib/interfaces/mongo";
+import { timeStamp } from "console";
+import mongoose, { DefaultSchemaOptions } from "mongoose";
 
 const blogSchema = new mongoose.Schema<IBlog>({
   title: {
@@ -24,17 +24,35 @@ const blogSchema = new mongoose.Schema<IBlog>({
 });
 
 //UsersSchema for mongo adapter
-const userSchema = new mongoose.Schema({},{strict:false})
+const userSchema = new mongoose.Schema({}, { strict: false });
 
+const configSchema = new mongoose.Schema<IConfig>(
+  {
+    rootId: {
+      type: String,
+    },
+    rootName: {
+      type: String,
+    },
+    children: [
+      {
+        id: String,
+        name: String,
+      },
+    ],
+  },
+  { strict: false }
+);
 
-const resourceSchema = new mongoose.Schema<IResource>({
-name:{
-  type:String,
-},
-category:{
-  type:String,
-},
+const resourceSchema = new mongoose.Schema<IResourceSchema>({
 description:{
+  type:String
+},
+tags:[String],
+title:{
+  type:String
+},
+typeId:{
   type:String
 },
 url:{
@@ -43,23 +61,20 @@ url:{
 userEmail:{
   type:String
 }
-
-},{strict:false})
-
-
-
+}, {timestamps:true})
 const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 const User = mongoose.models.User || mongoose.model("User", userSchema);
-// const Resource = mongoose.model("Resource") || mongoose.model("Resource", resourceSchema)
-
+const Config = mongoose.models.Config || mongoose.model("Config", configSchema);
+const Resource = mongoose.models.Resource || mongoose.model("Resource", resourceSchema)
 export class MongoSchema implements ISchemaExport {
   Blog: any;
-  User:any
+  User: any;
+  Config: any;
   Resource: any;
   constructor() {
     this.Blog = Blog;
-    this.User = User
-    // this.Resource = Resource
+    this.User = User;
+    this.Config = Config;
+    this.Resource = Resource
   }
-
 }
