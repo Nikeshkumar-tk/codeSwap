@@ -1,10 +1,10 @@
-import { useResourceService } from '@/lib/clientApiServices/blog'
+import { useCourseServices } from '@/lib/clientApiServices/blog'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import Loading from './Loading'
 
 const Courses = () => {
-  const services = useResourceService()
+  const services = useCourseServices()
   const [courses, setCourses] = useState<any>([])
   const { isLoading: loadingCourses } = useQuery({
     queryKey: 'resources',

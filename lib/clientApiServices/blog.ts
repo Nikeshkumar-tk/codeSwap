@@ -40,7 +40,7 @@ export class BlogServices implements IClientBlog {
   }
 }
 
-export class ResourceServices {
+export class CourseServices {
   async getResourceList() {
     try {
       const response = await axios.get("/api/courseData/courses");
@@ -51,4 +51,4 @@ export class ResourceServices {
   }
 }
 export const useBlogservice = () => new BlogServices();
-export const useResourceService = () => new ResourceServices();
+export const useCourseServices = () => new CourseServices()
