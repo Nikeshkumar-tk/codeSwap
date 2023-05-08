@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import YoutubeResources from '@/components/YoutubeResources'
 import AddResourceModal from '@/components/modals/AddResource'
+import { useSession } from 'next-auth/react'
 
 const ResourceHomePage = () => {
   const [hydrated, setHydrated] = useState<boolean>()
@@ -13,6 +14,7 @@ const ResourceHomePage = () => {
   const [openAddModal, setOpenAddModal] = useState<boolean>(false)
   const [studyResourceTypes, setStudyResourceTypes] = useState<any[]>([])
   const configService = useConfigService()
+  const {data} = useSession()
   const tabValues: string[] = ["Youtube videos", "Articles"]
   useQuery({
     queryKey: ["study_resource_type"],
@@ -33,7 +35,9 @@ const ResourceHomePage = () => {
     <div className='py-24 px-8 sm:px-20 '>
       <div className='w-full flex justify-between'>
         <h1 className='text-2xl font-semibold '>Explore resources</h1>
-        <button onClick={() => setOpenAddModal(true)} className='rounded-md border border-gray-600 px-3.5 py-1 text-base font-semibold leading-7 text-gray-600 hover:bg-gray-300'>Add new</button>
+      {/* @ts-ignore */}
+        {data?.user?.role === "admin" &&  <button onClick={() => setOpenAddModal(true)} className='rounded-md border border-gray-600 px-3.5 py-1 text-base font-semibold leading-7 text-gray-600 hover:bg-gray-300'>Add new</button>}
+       
       </div>
       <ul className='flex gap-3 mt-3'>
         {

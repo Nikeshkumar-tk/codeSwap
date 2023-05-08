@@ -4,7 +4,7 @@ import { STUDY_RESOURCE_TYPE } from "../shared/enums";
 interface IGetResourse {
   typeId: STUDY_RESOURCE_TYPE;
 }
-type IAddResourse = {
+export type IAddResourse = {
   data: {
     title: string;
     userEmail: string;
@@ -18,8 +18,8 @@ export class ResourceService implements IServices {
 
   constructor() {
     this.baseUrl = "api/resource";
-
     this.getResources = this.getResources.bind(this);
+    this.addResource = this.addResource.bind(this)
   }
 
   async getResources(params: IGetResourse) {
@@ -27,8 +27,8 @@ export class ResourceService implements IServices {
     return response;
   }
 
-  async addResource(params: IAddResourse) {
-    const response = await axios.post(`${this.baseUrl}`, params);
+  async addResource(params: IAddResourse | any) {
+    const response = await axios.post(`${this.baseUrl}`, params.data);
     return response
   }
 }

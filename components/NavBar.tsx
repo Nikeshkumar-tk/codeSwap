@@ -3,6 +3,7 @@ import { AiFillGithub, AiOutlineMenu } from 'react-icons/ai'
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link'
 import { ISessionUser } from '@/lib/interfaces/user';
+import Image from 'next/image';
 interface Props {
 
     drawerOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,10 +12,9 @@ interface Props {
 const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
     const { status, data } = useSession()
     const sessionUser = data?.user as ISessionUser
-    console.log("Printing session user", sessionUser)
     return (
         <nav className='px-10 bg-white sm:px-20 mx-auto py-5 fixed  w-screen z-10'>
-            <div className='absolute left-3 sm:left-8 top-[40%] font-bold cursor-pointer' onClick={() => drawerOpen(p => !p)}>
+            <div className='absolute left-3 sm:left-8 top-[42%] font-bold cursor-pointer' onClick={() => drawerOpen(p => !p)}>
                 <AiOutlineMenu />
             </div>
             <div className='flex justify-between whitespace-nowrap items-center'>
@@ -34,12 +34,12 @@ const NavBar = ({ drawerOpen, menuBtnRef }: Props) => {
                  <a href="https://github.com/Nikeshkumar-tk/codeSwap" className='hidden sm:inline-block' target='_blank'><AiFillGithub size={35}/></a>   
                         {
                             status === "unauthenticated" ? <Link href={"auth/signin"}>
-                                <button className='rounded-md border border-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-indigo-600 hover:bg-indigo-300'>
+                                <button className='rounded-full border border-indigo-600 px-3.5 py-1 text-base font-semibold leading-7 text-indigo-600 hover:bg-indigo-300'>
                                     SignIn
                                 </button>
                             </Link> : (
                                 <div className='flex items-center'>
-                                    <img src={sessionUser?.image} className='rounded-full h-8 w-8' alt=''/>
+                                    <Image src={data?.user?.image!} width={100}  height={100} className='rounded-full h-8 w-8' alt=''/>
                                 </div>
                             )
                         }

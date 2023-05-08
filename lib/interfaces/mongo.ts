@@ -1,4 +1,5 @@
 import mongoose, { DefaultSchemaOptions } from "mongoose";
+import { IMongoGetItemQuery } from "../shared/interfaces";
 
 
 export interface IMongoDal{
@@ -19,7 +20,7 @@ export interface IAuthService{
 
 export interface IGetItem{
 resource:string
-queryObj?:any
+queryObj?:IMongoGetItemQuery
 }
 
 
@@ -36,6 +37,7 @@ export interface ISchemaExport{
     User:any
     Config:any
     Resource:any
+    Tags:any
 }
 
 export interface IClientBlog{
@@ -57,4 +59,8 @@ export interface IResourceSchema extends DefaultSchemaOptions{
     title:string
     description:string
     url:string
+}
+
+export interface ITagSchema{
+    name:string
 }

@@ -17,10 +17,10 @@ const YoutubeResources = (props:Props) => {
       onSuccess:(response) => setData(response.data)
     })
   return (
-    <div className='w-full flex flex-col sm:px-3 mt-5'>
+    <div className='w-full grid sm:grid-cols-4 gap-5 sm:px-3 mt-5 '>
         {
             data?.map((video:any) => (
-                <div className='w-80 shadow-md' key={video._id}>
+                <div className='w-80 shadow-md px-3 pt-2' key={video._id}>
                   <p className='text-2xl font-semibold '>{video.title}</p>  
                    <YouTubePlayer videoId={video.url} className=' w-20 '/> 
                    <p className='font-sans mt-2 p-3'>{video.description}</p>

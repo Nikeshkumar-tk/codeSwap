@@ -8,7 +8,7 @@ function YouTubePlayer(props: Props) {
   const videoId = props.videoId;
   const opts = {
     height: '230',
-    width: '320',
+    width: '290',
     playerVars: {
       autoplay: 0,
     },

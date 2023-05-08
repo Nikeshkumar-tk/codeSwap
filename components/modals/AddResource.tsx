@@ -4,9 +4,10 @@ import { PrimaryButton } from '../globals/Buttons'
 import { useMutation, useQuery } from 'react-query'
 import { useConfigService } from '@/lib/clientApiServices/config'
 import { ROOT_CONFIGS_IDS } from '@/lib/shared/enums'
-import { useResourceService } from '@/lib/clientApiServices/resources'
+import { IAddResourse, useResourceService } from '@/lib/clientApiServices/resources'
 import { getFormData } from '@/lib/shared/helpers'
 import { useSession } from 'next-auth/react'
+import { useTagServices } from '@/lib/clientApiServices/tags'
 interface Props {
     open: boolean
     setOpen: React.Dispatch<SetStateAction<boolean>>
@@ -14,9 +15,12 @@ interface Props {
 const AddResourceModal = (props: Props) => {
     const { open, setOpen } = props
     const [studyResourceTypes, setStudyResourceTypes] = useState<any[]>([])
+    const [tagsForNewResource, setTagsForNewResource] = useState<string[]>([])
+    const [allTags, setAllTags] = useState<any[]>([])
     const configService = useConfigService()
     const resourceServices = useResourceService()
-    const {data} = useSession()
+    const tagServices = useTagServices()
+    const { data } = useSession()
     useQuery({
         queryKey: ["study_resource_type"],
         queryFn: async () => {
@@ -39,8 +43,15 @@ const AddResourceModal = (props: Props) => {
         e.preventDefault()
         const formData = getFormData(e)
         formData.userEmail = await data?.user?.email!
-        console.log("Printing", formData)
+        console.log(formData)
+        addResource({ data: formData })
     }
+    async function getTags(tagQuery: string) {
+        const response = await tagServices.getTags(tagQuery)
+        response && setAllTags(response.data)
+    }
+
+    console.log(allTags)
     return (
         <Modal open={open} setOpen={setOpen} heading='Add new resource'>
             <div className='w-80 mt-5'>
@@ -57,6 +68,18 @@ const AddResourceModal = (props: Props) => {
                         className="flex h-10 w-full mt-3 rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         type="text"
                         placeholder="Enter heading..." name='title' />
+                    <div className='flex min-h-10 w-full mt-3 rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900'>
+                        <div>
+                            <p></p>
+                        </div>
+                        <input
+                            className="border-none outline-none"
+                            type="text"
+                            onChange={(e) => {
+                                getTags(e.target.value as string)
+                            }}
+                            placeholder="Type tags" />
+                    </div>
                     <textarea
                         className="flex min-h-20 w-full mt-3 rounded-md border border-gray-300 bg-transparent py-2 px-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         placeholder="Enter dscription..." name='description' />

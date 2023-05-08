@@ -1,4 +1,4 @@
-import { IBlog, IConfig, IResourceSchema, ISchemaExport } from "@/lib/interfaces/mongo";
+import { IBlog, IConfig, IResourceSchema, ISchemaExport, ITagSchema } from "@/lib/interfaces/mongo";
 import { timeStamp } from "console";
 import mongoose, { DefaultSchemaOptions } from "mongoose";
 
@@ -62,19 +62,30 @@ userEmail:{
   type:String
 }
 }, {timestamps:true})
+
+
+const tagSchema = new mongoose.Schema<ITagSchema>({
+name:{
+  type:String,
+  required:true
+}
+})
 const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 const Config = mongoose.models.Config || mongoose.model("Config", configSchema);
 const Resource = mongoose.models.Resource || mongoose.model("Resource", resourceSchema)
+const Tags = mongoose.models.Tags || mongoose.model("Tags", tagSchema)
 export class MongoSchema implements ISchemaExport {
   Blog: any;
   User: any;
   Config: any;
   Resource: any;
+  Tags: any;
   constructor() {
     this.Blog = Blog;
     this.User = User;
     this.Config = Config;
     this.Resource = Resource
+    this.Tags = Tags
   }
 }
