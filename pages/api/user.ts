@@ -1,4 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { IMongoGetItemQuery } from "@/lib/shared/interfaces";
 import { MongoDal } from "@/lib/utils/mongoDal";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -15,7 +15,7 @@ export default async function handler(
 
         switch(method){
             case "GET":
-                result = await mongoDal.getItem({resource:"User",queryObj})
+                result = await mongoDal.getItem({resource:"User",queryObj:queryObj as IMongoGetItemQuery})
                 return res.status(200).send(result);
         }
     }catch(error:any){

@@ -1,23 +1,19 @@
-import axios from "axios"
+import axios from "axios";
 
-interface ITagSrvices{
-    relativePath:string
+interface ITagSrvices {
+  relativePath: string;
 }
-class TagServices implements ITagSrvices{
-relativePath: string
-constructor(){
-    this.relativePath = "/api/tags"
-    this.getTags = this.getTags.bind(this)
-}
+class TagServices implements ITagSrvices {
+  relativePath: string;
+  constructor() {
+    this.relativePath = "/api/tags";
+    this.getTags = this.getTags.bind(this);
+  }
 
-
-async getTags(tagQuery:string){
-    const response = await axios.get(`${this.relativePath}?name=${tagQuery}&&isPrefix=true`)
-    return response
-
-}
+  async getTags() {
+    const response = await axios.get(`${this.relativePath}`);
+    return response;
+  }
 }
 
-
-export const useTagServices = () => new TagServices()
-
+export const useTagServices = () => new TagServices();

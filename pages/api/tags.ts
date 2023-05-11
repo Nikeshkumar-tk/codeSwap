@@ -18,7 +18,6 @@ export default async function handler(
   const requestBody = req.body as ITagsApiRequestBody
   const mongoDal = new MongoDal();
   let result;
-console.log(requestBody)
 try{
 
     switch (method) {
@@ -32,7 +31,6 @@ try{
           queryObj = req.query
           queryObj.isPrefix = true
         }
-        console.log("Printing ", queryObj)
         result = await mongoDal.getItem({resource:HTTP_RESOURCES.TAGS, queryObj})
           break
     }

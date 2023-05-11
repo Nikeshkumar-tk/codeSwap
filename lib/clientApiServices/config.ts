@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { ROOT_CONFIGS_IDS } from "../shared/enums"
 
 interface IGetConfig{
@@ -14,7 +14,7 @@ export class ConfigService{
     async getConfig(params:IGetConfig){
         console.log(params)
         const response = await axios.get(`${this.relativePath}?rootId=${params.rootId}`)
-        return response
+        return response as AxiosResponse
     }
 }
 

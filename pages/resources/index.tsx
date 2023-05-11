@@ -29,7 +29,7 @@ const ResourceHomePage = () => {
   })
   useEffect(() => {
     setHydrated(true)
-  })
+  },[])
   if (!hydrated) return null
   return (
     <div className='py-24 px-8 sm:px-20 '>

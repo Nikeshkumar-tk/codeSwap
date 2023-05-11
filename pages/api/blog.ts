@@ -1,3 +1,4 @@
+import { IMongoGetItemQuery } from "@/lib/shared/interfaces";
 import { MongoDal } from "@/lib/utils/mongoDal";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -18,7 +19,7 @@ export default async function handler(
         });
         return res.status(200).send(result);
       case "GET":
-        const queryObj = req.query
+        const queryObj = req.query as IMongoGetItemQuery
         result = await mongoDal.getItem({resource:"Blog",queryObj})
         return res.status(200).send(result);
         
