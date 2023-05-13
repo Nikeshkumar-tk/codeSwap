@@ -3,7 +3,8 @@ STUDY_RESOURCE_TYPE = "studyResourceType",
 }
 
 export enum STUDY_RESOURCE_TYPE {
-    YOUTUBE_VIDEO = "youtube_video"
+    YOUTUBE_VIDEO = "youtube_video",
+    ARTICLE = "article"
 }
 
 

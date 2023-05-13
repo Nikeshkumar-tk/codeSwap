@@ -19,6 +19,7 @@ export default async function handler(
           if(req.body.typeId === STUDY_RESOURCE_TYPE.YOUTUBE_VIDEO){
             req.body.url = getVideoId(req.body.url as string)
           }
+          console.log(req.body)
           result = await mongoDal.createItem({resource:"Resource", data:req.body, uniqueCheck:null})
           return res.status(200).send(result)
       case "GET":

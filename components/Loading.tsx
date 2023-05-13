@@ -1,26 +1,19 @@
 import React from 'react'
-import { MutatingDots } from 'react-loader-spinner'
 interface Props{
     text?:string
 }
 const Loading = (props:Props) => {
     return (
-        <div className='flex items-center justify-center absolute w-screen top-0 left-0 h-screen'>
-            <div className='flex flex-col items-center'>
-            <MutatingDots
-                height="100"
-                width="100"
-                color="#4f46e5"
-                secondaryColor='#4f46e5'
-                radius='12.5'
-                ariaLabel="mutating-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-            />
-            <span>{props.text}</span>
-            </div>
+        <div className='h-screen  grid place-content-center w-screen absolute top-0 left-0'>
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status">
+          <span
+            className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          >Loading...</span
+          >
         </div>
+      </div>
     )
 }
 

@@ -4,7 +4,6 @@ import { useState, useContext } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useQuery } from 'react-query'
 import BlogCard from './BlogCard'
-import { Dna } from 'react-loader-spinner'
 import { useSession } from 'next-auth/react'
 import { ISessionUser } from '@/lib/interfaces/user'
 import { memo } from "react"
@@ -15,13 +14,14 @@ const Blog = memo(({ session }: any) => {
   const [blogs, setBlogs] = useState<any[]>([])
   const { status, data } = useSession()
   const sessionUser = data?.user as ISessionUser
-const {role} = useContext(UserContext)
-console.log("Printing role from context", role)
-  const { isLoading:loadingBlogs } = useQuery({
+  const { role } = useContext(UserContext)
+  console.log("Printing role from context", role)
+  const { isLoading: loadingBlogs } = useQuery({
     queryKey: 'blogs',
     queryFn: blogServices.getBlogList,
     onSuccess: (response) => setBlogs(response.data)
   })
+  let load = true
   return (
     <div className='h-full'>
       {
@@ -39,23 +39,24 @@ console.log("Printing role from context", role)
         </Link>
 
       }
-<div>
-  <h1 className='text-4xl font-semibold flex justify-center whitespace-nowrap text-indigo-800'>Blogs</h1>
-</div>
+      <div>
+        <h1 className='text-4xl font-semibold flex justify-center whitespace-nowrap text-indigo-800'>Blogs</h1>
+      </div>
       {
-        loadingBlogs ? <Loading text='Loading blogs...'/>
-       :
-            <div className='grid  py-5 sm:grid-cols-3 gap-y-4 gap-x-3 max-h-screen mt-5 overflow-y-scroll'>
+        loadingBlogs ?
+          <Loading />
+          :
+          <div className='grid  py-5 sm:grid-cols-3 gap-y-4 gap-x-3 max-h-screen mt-5 overflow-y-scroll'>
 
-              {
-                blogs.map((blog: any) => (
+            {
+              blogs.map((blog: any) => (
 
-                  <BlogCard title={blog.title} description={blog.description} image={blog.imageUrl} author={blog.username} key={blog.title} />
+                <BlogCard title={blog.title} description={blog.description} image={blog.imageUrl} author={blog.username} key={blog.title} />
 
-                ))
-              }
-            </div>
-          
+              ))
+            }
+          </div>
+
       }
     </div>
   )

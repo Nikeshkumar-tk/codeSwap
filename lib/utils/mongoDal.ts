@@ -40,7 +40,7 @@ export class MongoDal implements IMongoDal {
         const requestEntries = Object.entries(queryObj)
         mongoQuery[requestEntries[0][0]] = new RegExp("^" + requestEntries[0][1], "i")
       } 
-      result = await model.find(mongoQuery);
+      result = await model.find(mongoQuery).sort({ 'createdAt' : -1 });
       return result;
     } catch (error) {
       throw error;

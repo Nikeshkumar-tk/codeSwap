@@ -6,9 +6,10 @@ interface Props {
 }
 function YouTubePlayer(props: Props) {
   const videoId = props.videoId;
+  
   const opts = {
     height: '230',
-    width: '290',
+    width: '350',
     playerVars: {
       autoplay: 0,
     },
@@ -16,7 +17,7 @@ function YouTubePlayer(props: Props) {
 
   return (
     <div className={`${props.className}`}>
-      <YouTube videoId={videoId} opts={opts} />
+      <YouTube videoId={videoId}  opts={opts} />
     </div>
   )
 }
