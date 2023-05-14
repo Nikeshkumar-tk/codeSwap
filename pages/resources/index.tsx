@@ -17,6 +17,7 @@ const ResourceHomePage = () => {
     setHydrated(true)
   }, [])
   if (!hydrated) return null
+  console.log("user info", userInfo)
   return (
     <div className='px-8 sm:px-20 pt-28'>
       <div className="flex justify-start items-center">
@@ -33,9 +34,9 @@ const ResourceHomePage = () => {
             <Tab>Articles</Tab>
           </div>
         </TabList>
-        {status === "authenticated" &&
+        {
           // @ts-ignore
-          userInfo.user?.role === APP_ROLES.ADMIN &&
+          userInfo?.user?.role === APP_ROLES.ADMIN &&
           <div className='flex justify-end'>
             <button
               onClick={() => setOpenAddModal(true)}

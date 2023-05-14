@@ -3,6 +3,16 @@ import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+
+interface IRequestBody{
+
+}
+
+interface IUserInfo{
+  email?:string
+  name?:string
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -13,8 +23,23 @@ export default async function handler(
   try {
     switch (method) {
       case HTTP_METHODS.POST:
-        const session = await getServerSession(req, res, authOptions);
-        req.body.host = session?.user?.email
+        let userInfo:IUserInfo = {}
+        if(process.env.APP_ENV === "prod"){
+          const session = await getServerSession(req, res, authOptions);
+          if(!session){
+            const errObj = new Error()
+            errObj.message = "Not authorized"
+            throw errObj
+          }
+          userInfo.email = session.user?.email!
+          userInfo.name = session.user?.name!
+        }else{
+          userInfo.email = req.body.hostEmail
+          userInfo.name = req.body.hostName
+        }
+        req.body.hostEmail = userInfo.email
+        req.body.hostName = userInfo.name
+        req.body.members = JSON.stringify(req.body.members)
         //@ts-ignore
         result = await Prisma.ChatRooms.create({
           data: req.body,
@@ -25,7 +50,7 @@ export default async function handler(
         result = await Prisma.ChatRooms.findMany();
         break;
     }
-    res.status(200).send(result);
+    return res.status(200).send(result);
   } catch (error: any) {
     res.status(500).send(error.message);
   }

@@ -48,7 +48,8 @@ model ChatRooms {
   description String 
   secured Boolean
   passCode String?
-  joinedMembers Int
+  numberOfMembers Int
+  members String
 }
 
 
