@@ -38,5 +38,17 @@ model Resources {
   description String @db.VarChar(255)
   url String?
 }
+model ChatRooms {
+  id        String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  topic   String   @db.VarChar(255)
+  hostEmail String 
+  hostName String 
+  description String 
+  secured Boolean
+  passCode String?
+  joinedMembers Int
+}
 
 

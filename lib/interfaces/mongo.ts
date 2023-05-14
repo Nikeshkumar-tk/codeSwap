@@ -56,7 +56,7 @@ export interface IResourceSchema extends DefaultSchemaOptions{
     typeId:string
     tags:string[]
     userEmail:string
-    title:string
+    title?:string
     description:string
     url:string
 }

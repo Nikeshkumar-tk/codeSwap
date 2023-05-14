@@ -23,7 +23,7 @@ const Blog = memo(({ session }: any) => {
   })
   let load = true
   return (
-    <div className='h-full'>
+    <div className='h-full mt-10'>
       {
         sessionUser?.role === "admin" &&
         <Link href={"/createBlog"} >
