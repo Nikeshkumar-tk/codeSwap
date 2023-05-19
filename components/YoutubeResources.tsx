@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import YouTubePlayer from './globals/YouTubePlayer'
 import { useQuery } from 'react-query'
 import { useResourceService } from '@/lib/clientApiServices/resources'
 import { APP_ROLES, STUDY_RESOURCE_TYPE } from '@/lib/shared/enums'
@@ -8,7 +7,6 @@ import YouTubeVideoCard from './YouTubeVideoCard'
 import { IResourceSchema } from '@/lib/interfaces/mongo'
 import Loading from './Loading'
 interface Props {
-  // data:any[]
 }
 const YoutubeResources = (props: Props) => {
   const [data, setData] = useState([])
@@ -25,7 +23,7 @@ const YoutubeResources = (props: Props) => {
   return (
     <div>
       {
-        youtubeResourceLoading ? <Loading /> : <div className='w-full grid sm:grid-cols-4 gap-80 sm:px-5 mt-5  '>
+        youtubeResourceLoading ? <Loading /> : <div className='w-full grid sm:grid-cols-3 overflow-x-scroll gap-20 sm:px-5 mt-5  '>
 
           {
             data?.map((video: IResourceSchema) => (
