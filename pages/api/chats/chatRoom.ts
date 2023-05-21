@@ -3,14 +3,13 @@ import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import RedisClient from "@/lib/shared/cache/redis";
 
-interface IRequestBody{
+interface IRequestBody {}
 
-}
-
-interface IUserInfo{
-  email?:string
-  name?:string
+interface IUserInfo {
+  email?: string;
+  name?: string;
 }
 
 export default async function handler(
@@ -20,30 +19,32 @@ export default async function handler(
   const method = req.method;
   let result;
   const Prisma = new PrismaClient();
+  const redisClient = new RedisClient();
   try {
     switch (method) {
       case HTTP_METHODS.POST:
-        let userInfo:IUserInfo = {}
-        if(process.env.APP_ENV === "prod"){
+        if (process.env.APP_ENV === "prod") {
           const session = await getServerSession(req, res, authOptions);
-          if(!session){
-            const errObj = new Error()
-            errObj.message = "Not authorized"
-            throw errObj
+          if (!session) {
+            const errObj = new Error();
+            errObj.message = "Not authorized";
+            throw errObj;
           }
-          userInfo.email = session.user?.email!
-          userInfo.name = session.user?.name!
-        }else{
-          userInfo.email = req.body.hostEmail
-          userInfo.name = req.body.hostName
+          req.body.hostEmail = session.user?.email!;
+          req.body.hostName = session.user?.name!;
         }
-        req.body.hostEmail = userInfo.email
-        req.body.hostName = userInfo.name
-        req.body.members = JSON.stringify(req.body.members)
+        req.body.members = JSON.stringify(req.body.members);
         //@ts-ignore
         result = await Prisma.ChatRooms.create({
           data: req.body,
         });
+        let chats: any = [];
+        const chatCache = await redisClient
+          .setValue(req.body.id, JSON.stringify(chats))
+          .then((response) =>
+            console.log("Successfully created chat page values")
+          );
+        result.chatPage = chatCache;
         break;
       case HTTP_METHODS.GET:
         //@ts-ignore
