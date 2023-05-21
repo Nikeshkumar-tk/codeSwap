@@ -11,10 +11,11 @@ interface Props {
   description: string
   hostName: string
   hostEmail: string
+  members:any
 }
 
 const ChatRoomCard = (props: Props) => {
-  const { topic, host, id, joinedMembers, secured, description, hostEmail, hostName } = props
+  const { topic, host, id, members, joinedMembers, secured, description, hostEmail, hostName } = props
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [disabledJoinBtn, setDisabledJoinBtn] = useState<boolean>(false)
   const [selectedChatRoom, setSelcetedChatRoom] = useState<any>({})
@@ -55,7 +56,7 @@ const ChatRoomCard = (props: Props) => {
           <div className="mt-4">
             <h1 className="font-semibold">Topic - {topic}</h1>
             <h1 className="font-semibold mt-2">Description - {description}</h1>
-            <h1 className="font-semibold mt-2 flex items-center gap-1"><HiStatusOnline />Online - {joinedMembers}</h1>
+            <h1 className="font-semibold mt-2 flex items-center gap-1"><HiStatusOnline />Online - {members?.length}</h1>
             <h1 className="font-semibold mt-2">Host name - {hostName}</h1>
             <h1 className="font-semibold mt-2">Host email - {hostEmail}</h1>
           </div>

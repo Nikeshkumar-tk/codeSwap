@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import BASE_URL from "../shared/constants";
 
 interface IChatServices {
   relativepath: string;
@@ -17,11 +18,16 @@ class ChatServices implements IChatServices {
 
   async createRoom(params: ICreateRooms) {
     const response = await axios.post(`${this.relativepath}/chatRoom`, params);
-    return response;
+    return response as AxiosResponse;
   }
   async getRooms() {
     const response = await axios.get(`${this.relativepath}/chatRoom`);
-    return response;
+    return response as AxiosResponse;
+  }
+
+  async getChats(id:string){
+    const response = await axios.get(`${BASE_URL}/${this.relativepath}/getChats?id=${id}`)
+    return response as AxiosResponse
   }
 }
 

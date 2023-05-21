@@ -33,11 +33,12 @@ const ChatHomePage = () => {
                     hostName={room.hostName}
                     hostEmail={room.hostEmail}
                     key={room.id}
+                    members={room.members}
                     />
                 ))
             }
             </div>
-            <div className={`absolute ${modalOpen ? "grid" : "hidden" }  place-content-center h-screen bg-modalBackground w-full z-20 top-0 left-0`}>
+        <div className={`absolute ${modalOpen ? "grid" : "hidden" }  place-content-center h-screen bg-modalBackground w-full z-20 top-0 left-0`}>
         <div className="bg-white w-80 h-80 rounded-md px-4 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-1">

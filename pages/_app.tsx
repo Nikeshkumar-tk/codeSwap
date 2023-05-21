@@ -16,7 +16,8 @@ export default function App({ session, Component, pageProps }: AppProps | any) {
   const currentPath = router.asPath
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
 
-  return (<SessionProvider session={session}>
+  return (
+  <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
         {currentPath !== "/auth/signin" && (
           <>
