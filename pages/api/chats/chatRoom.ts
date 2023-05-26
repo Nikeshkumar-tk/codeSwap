@@ -48,11 +48,15 @@ export default async function handler(
         break;
       case HTTP_METHODS.GET:
         //@ts-ignore
-        result = await Prisma.ChatRooms.findMany();
+        const rooms = await Prisma.ChatRooms.findMany();
+       result = rooms.map((room:any) => {
+        return {...room, members:JSON.parse(room?.members!)}
+       })
         break;
     }
     return res.status(200).send(result);
   } catch (error: any) {
+    console.log(error)
     res.status(500).send(error.message);
   }
 }

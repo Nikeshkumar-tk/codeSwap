@@ -1,10 +1,9 @@
 import RedisClient from "@/lib/shared/cache/redis";
 import checkMethod from "@/lib/shared/controllers/checkMethod";
 import { HTTP_METHODS } from "@/lib/shared/enums";
-import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type RequestBody = {
+export type RequestBody = {
   roomId?: string;
   email: string;
   message: string;
@@ -15,7 +14,6 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   checkMethod({ method: HTTP_METHODS.POST, req, res });
-  const Prisma = new PrismaClient();
   const redisClient = new RedisClient();
   const requestBody = req.body as RequestBody;
   try {
